@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../Constants/appConstants.dart';
 import '../ProductsScreen/itemInfoScreen.dart';
 import '../ProductsScreen/productsScreen.dart';
 class SearchProductScreen extends StatefulWidget {
@@ -56,13 +57,13 @@ shrinkWrap: true,physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 2),
               itemBuilder: (BuildContext, int index) {
                 return Card(
-                  color: Color(0xffDEF1F8),
+                  color: AppConstants.themeColor,
                   elevation: 0.2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: InkWell(onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ItemInfoScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ItemInfoScreen(index: index,)));
                   },
                     child: GridTile(
                       header: Padding(
@@ -112,7 +113,7 @@ shrinkWrap: true,physics: NeverScrollableScrollPhysics(),
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 15.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>AllProductScreen()));
+                          //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AllProductScreen()));
                           },
                           child: Text('Buy Regular'),
                         ),

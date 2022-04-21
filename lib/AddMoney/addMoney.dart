@@ -17,7 +17,7 @@ class _AddMoneyState extends State<AddMoney> {
   Widget build(BuildContext context) {
     return Scaffold(drawer: DrawerWidget(),
       appBar: AppBar(title: Text('Add Money'),
-        backgroundColor: Color(0xffDEF1F8),
+        backgroundColor: AppConstants.themeColor,
         foregroundColor: Colors.black,elevation: 0,
       ),
       body:Stack(
@@ -25,7 +25,7 @@ class _AddMoneyState extends State<AddMoney> {
           Container(
             height: 400,
             width: MediaQuery.of(context).size.width,
-            color:Color(0xffDEF1F8),
+            color:AppConstants.themeColor,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 110.0),
@@ -75,7 +75,7 @@ class _AddMoneyState extends State<AddMoney> {
                                 vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                  color: Color(0xffDEF1F8),
+                                  color: AppConstants.themeColor,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.blue)),
                               child: Padding(
@@ -91,7 +91,7 @@ class _AddMoneyState extends State<AddMoney> {
                                 vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                  color: Color(0xffDEF1F8),
+                                  color: AppConstants.themeColor,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.blue)),
                               child: Padding(
@@ -107,7 +107,7 @@ class _AddMoneyState extends State<AddMoney> {
                                 vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                  color: Color(0xffDEF1F8),
+                                  color: AppConstants.themeColor,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.blue)),
                               child: Padding(
@@ -123,7 +123,7 @@ class _AddMoneyState extends State<AddMoney> {
                                 vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                  color: Color(0xffDEF1F8),
+                                  color: AppConstants.themeColor,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.blue)),
                               child: Padding(
@@ -139,7 +139,7 @@ class _AddMoneyState extends State<AddMoney> {
                                 vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                  color: Color(0xffDEF1F8),
+                                  color: AppConstants.themeColor,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.blue)),
                               child: Padding(

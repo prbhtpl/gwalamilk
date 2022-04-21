@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gwalamilk/DrawerWidget/drawerWidget.dart';
 
+import '../Constants/appConstants.dart';
+
 class ReferAFriend extends StatefulWidget {
   const ReferAFriend({Key? key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class _ReferAFriendState extends State<ReferAFriend> {
       appBar: AppBar(
         elevation: 0.0,
         foregroundColor: Colors.black,
-        backgroundColor: Color(0xffDEF1F8),
+        backgroundColor: AppConstants.themeColor,
         title: Text('Refer a Friend'),
       ),
       body: DefaultTabController(
@@ -29,7 +31,7 @@ class _ReferAFriendState extends State<ReferAFriend> {
             Container(
               height: 400,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xffDEF1F8),
+              color: AppConstants.themeColor,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 80.0),

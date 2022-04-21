@@ -20,7 +20,7 @@ class _OrderHistoryState extends State<OrderHistory> {
         elevation: 0.5,
         title: Text('Order History'),
       ),
-      body: Container(color:Color(0xffDEF1F8),child: ListViewofProduct()),
+      body: Container(color:AppConstants.themeColor,child: ListViewofProduct()),
     );
   }
 

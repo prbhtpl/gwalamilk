@@ -1,16 +1,69 @@
-import 'package:flutter/material.dart';
-import 'package:gwalamilk/Constants/appConstants.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gwalamilk/Constants/appConstants.dart';
+import 'package:gwalamilk/HelperFunctions/HelperFunctions.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:http/http.dart' as http;
 import '../homePage.dart';
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
-
+  const OtpScreen({Key? key,required this.number}) : super(key: key);
+final String number;
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  final formKey =GlobalKey<FormState>();
+  TextEditingController otp = TextEditingController();
+  Future otpSend() async {
+    if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Loading');
+
+      var api = Uri.parse(AppConstants.user_login1);
+
+      Map mapeddate = {
+        'number':widget.number.toString(),
+        'otp':otp.text.toString()
+      };
+
+      final response = await http.post(
+        api,
+        body: mapeddate,
+      );
+
+      var res = await json.decode(response.body);
+      print("response" + response.body);
+      var msg = res['message'].toString();
+      try {
+        if (response.statusCode == 200) {     EasyLoading.dismiss();
+        if(msg=='Login Successfull'){
+          HelperFunctions.saveuserCurrentUserIdSharedPreference( res['user_id']);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => homePage(),
+              ));
+
+        }else{  EasyLoading.dismiss();
+        Fluttertoast.showToast(msg: msg.toString());
+        }
+
+        }else{
+          EasyLoading.dismiss();
+          Fluttertoast.showToast(msg: 'Something went Wrong');
+        }
+      } catch (e) {
+        print(e);
+      }
+    }else{
+      EasyLoading.dismiss();
+      Fluttertoast.showToast(msg: 'Fill all fields First');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +128,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        '7007075948',
+                        widget.number,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -87,10 +140,15 @@ class _OtpScreenState extends State<OtpScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  Form(
+                  Form(key: formKey,
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35),
-                        child: PinCodeTextField(obscuringCharacter:'*',
+                        child: PinCodeTextField(validator: (value){
+                          if(value!.isEmpty){
+                            return "Please Enter Valid OTP";
+                          }
+                        },inputFormatters: [LengthLimitingTextInputFormatter(6)],
+                          controller:otp,obscuringCharacter:'*',
                           appContext: context,backgroundColor: Colors.transparent,
                           pastedTextStyle: TextStyle(
                             color: Colors.green,
@@ -175,11 +233,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(primary:AppConstants.buttonColor),
                       onPressed: () {
-                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => homePage(),
-                          ));
+                       otpSend();
                       },
                       child: const Text(
                         'Verify Phone Number',

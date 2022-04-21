@@ -9,18 +9,18 @@ import 'package:gwalamilk/Auth/LoginScreen.dart';
 import 'package:gwalamilk/Auth/otpScreen.dart';
 import 'package:gwalamilk/Constants/appConstants.dart';
 import 'package:http/http.dart' as http;
+import '../HelperFunctions/HelperFunctions.dart';
 import '../homePage.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
+  SignUpScreen(this.toggle);
+  final Function toggle;
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
-  final formKey =GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   TextEditingController number = TextEditingController();
   TextEditingController name = TextEditingController();
@@ -28,16 +28,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController email = TextEditingController();
 
   Future Register() async {
-    // await HelperFunctions.saveuserLoggedInSharedPreference(true);
+    await HelperFunctions.saveuserLoggedInSharedPreference(true);
     if (formKey.currentState!.validate()) {
-EasyLoading.show(status: 'Loading');
+      EasyLoading.show(status: 'Loading');
 
       var api = Uri.parse(AppConstants.user_register);
 
       Map mapeddate = {
-      'name':name.text.toString(),
-      'mobile':number.text.toString(),
-      'email':email.text.toString()
+        'name': name.text.toString(),
+        'mobile': number.text.toString(),
+        'email': email.text.toString()
       };
 
       final response = await http.post(
@@ -47,36 +47,32 @@ EasyLoading.show(status: 'Loading');
 
       var res = await json.decode(response.body);
       print("response" + response.body);
-var msg = res['message'].toString();
-
+      var msg = res['message'].toString();
 
       try {
-        if (response.statusCode == 200) {     EasyLoading.dismiss();
-          if(msg=='success'){
+        if (response.statusCode == 200) {
+          EasyLoading.dismiss();
+          if (msg == 'success') {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        OtpScreen()));
-
-          }else{  EasyLoading.dismiss();
+                    builder: (context) => LoginPage(widget.toggle)));
+          } else {
+            EasyLoading.dismiss();
             Fluttertoast.showToast(msg: msg.toString());
           }
-
-        }else{
+        } else {
           EasyLoading.dismiss();
           Fluttertoast.showToast(msg: 'Something went Wrong');
         }
       } catch (e) {
         print(e);
-
       }
-    }else{
+    } else {
       EasyLoading.dismiss();
-Fluttertoast.showToast(msg: 'Fill all fields First');
+      Fluttertoast.showToast(msg: 'Fill all fields First');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +139,8 @@ Fluttertoast.showToast(msg: 'Fill all fields First');
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      Align(alignment: Alignment.center,
+                                      Align(
+                                        alignment: Alignment.center,
                                         child: Text(
                                           'Register',
                                           style: TextStyle(
@@ -154,7 +151,7 @@ Fluttertoast.showToast(msg: 'Fill all fields First');
                                         ),
                                       ),
                                       Form(
-                                            key: formKey,
+                                        key: formKey,
                                         child: Column(
                                           children: [
                                             TextFormField(
@@ -186,13 +183,14 @@ Fluttertoast.showToast(msg: 'Fill all fields First');
                                                   hintStyle: TextStyle(
                                                       color: Colors.black54)),
                                             ),
-                                            TextFormField(  validator: (val) {
-                                              return RegExp(
-                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                  .hasMatch(val!)
-                                                  ? null
-                                                  : "Please provide a valid email";
-                                            },
+                                            TextFormField(
+                                              validator: (val) {
+                                                return RegExp(
+                                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                        .hasMatch(val!)
+                                                    ? null
+                                                    : "Please provide a valid email";
+                                              },
                                               controller: email,
                                               style: TextStyle(
                                                   color: Colors.black),
@@ -233,8 +231,7 @@ Fluttertoast.showToast(msg: 'Fill all fields First');
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           onPressed: () {
-                                             Register();
-
+                                            Register();
                                           },
                                         ),
                                       ),
@@ -289,7 +286,7 @@ Fluttertoast.showToast(msg: 'Fill all fields First');
                         onTap: () {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return LoginPage();
+                            return LoginPage(widget.toggle);
                           }));
                         },
                         child: Text('Login?',

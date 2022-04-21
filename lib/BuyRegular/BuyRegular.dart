@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../BuyOnce/addAddress1.dart';
 import '../CartItems/CartScreen.dart';
 import '../Constants/appConstants.dart';
 class BuyRegular extends StatefulWidget {
@@ -11,6 +12,8 @@ class BuyRegular extends StatefulWidget {
 }
 
 class _BuyRegularState extends State<BuyRegular> {
+  int value1 = -1;
+
   DateTime currentEndDate = DateTime.now();
 TextEditingController searchBoxEditor =TextEditingController();
   Future<void> _selectEndtDate(BuildContext context) async {
@@ -269,7 +272,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                            height: 25,
                            width: 25,
                            decoration: BoxDecoration(
-                               color: Color(0xffDEF1F8),
+                               color: AppConstants.themeColor,
                                borderRadius:
                                BorderRadius.all(Radius.circular(5))),
                            child: Icon(
@@ -300,7 +303,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                            height: 25,
                            width: 25,
                            decoration: BoxDecoration(
-                               color: Color(0xffDEF1F8),
+                               color: AppConstants.themeColor,
                                borderRadius:
                                BorderRadius.all(Radius.circular(5))),
                            child: Icon(
@@ -343,7 +346,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -374,7 +377,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -410,7 +413,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -441,7 +444,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -477,7 +480,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -508,7 +511,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -544,7 +547,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -575,7 +578,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -611,7 +614,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -642,7 +645,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -678,7 +681,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -709,7 +712,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -745,7 +748,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -776,7 +779,7 @@ TextEditingController searchBoxEditor =TextEditingController();
                                  height: 25,
                                  width: 25,
                                  decoration: BoxDecoration(
-                                     color: Color(0xffDEF1F8),
+                                     color: AppConstants.themeColor,
                                      borderRadius:
                                      BorderRadius.all(Radius.circular(5))),
                                  child: Icon(
@@ -821,12 +824,91 @@ TextEditingController searchBoxEditor =TextEditingController();
                ],
              ),
            ), SizedBox(height: 25,),
+           Padding(
+             padding: const EdgeInsets.only(left: 10),
+             child: ElevatedButton(onPressed: (){
+
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>AddAddressScreen()));
+
+             },
+               style: ElevatedButton.styleFrom(primary: AppConstants.buttonColor),
+               child: Text(
+                 'Add New Address',
+                 style: TextStyle(
+                   fontSize: 15,
+                   fontWeight: FontWeight.w600,
+                 ),
+               ),
+             ),
+           ),
+           ListViewofAddress(),
            FloatingButton()
          ],
        ),
      ),
    ),
 
+    );
+  }
+  Widget ListViewofAddress() {
+    return ListView.builder(
+      itemCount: 2,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext, int index) {
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: ListTile(leading:  Text(
+            'Home',
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontSize: 15),
+          ) ,
+              title:  Padding(
+                padding: const EdgeInsets.all(0.0),
+                child:Text(
+                  'Harihar nagar, Indira nagar,Lucknow 227305',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ),
+              subtitle:  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+
+                  InkWell(onTap: (){}, child:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5),
+                    child: Text('Edit',style: TextStyle(fontSize: 12,color: Colors.green),),
+                  )),
+                  InkWell(onTap: (){}, child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5),
+                    child: Text('Remove',style: TextStyle(fontSize: 12,color: Colors.red),),
+                  )),
+                ],
+              ),
+
+              trailing:   Column(
+                children: [
+                  Radio(
+                    value: index,
+                    groupValue: value1,
+                    onChanged: (value) {
+                      setState(() {
+                        value1 = value as int;
+                      });
+                    },
+                    activeColor: AppConstants.buttonColor,
+                  ),
+                ],
+              )
+
+          ),
+        );
+      },
     );
   }
   Widget FloatingButton(){

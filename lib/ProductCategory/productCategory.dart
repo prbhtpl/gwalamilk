@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gwalamilk/DrawerWidget/drawerWidget.dart';
 
+import '../Constants/appConstants.dart';
 import '../ProductsScreen/productsScreen.dart';
 class ProductCategory extends StatefulWidget {
   const ProductCategory({Key? key}) : super(key: key);
@@ -43,11 +44,11 @@ class _ProductCategoryState extends State<ProductCategory> {
                itemBuilder: (BuildContext, int index) {
                  return InkWell(
                    onTap: () {
-                     Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => AllProductScreen()));
+                   /*  Navigator.push(context,
+                         MaterialPageRoute(builder: (context) => AllProductScreen()));*/
                    },
                    child: Card(
-                     color: Color(0xffDEF1F8),
+                     color: AppConstants.themeColor,
                      elevation: 0.2,
                      shape: RoundedRectangleBorder(
                        borderRadius: BorderRadius.circular(10.0),

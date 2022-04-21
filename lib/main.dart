@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gwalamilk/Auth/LoginScreen.dart';
+import 'package:gwalamilk/DrawerWidget/Authenticate.dart';
 
+import 'HelperFunctions/HelperFunctions.dart';
 import 'homePage.dart';
 
 void main() {
@@ -26,9 +28,28 @@ void configLoading() {
     ..dismissOnTap = false;
   //..customAnimation = CustomAnimation();
 }
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-  
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool? userIsLoggedIn;
+  getLoggedInState() async {
+    await HelperFunctions.getuserLoggedInSharedPreference().then((value) {
+      setState(() {
+        userIsLoggedIn = value;
+        print("value:${value}");
+      });
+    });
+  }
+  @override
+  void initState() {
+    getLoggedInState();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp( builder: EasyLoading.init() ,
@@ -39,7 +60,16 @@ class MyApp extends StatelessWidget {
       home:  AnimatedSplashScreen(
         splashIconSize: 200,
         duration: 3000,
-        nextScreen:  LoginPage(),
+        nextScreen: userIsLoggedIn != null
+            ? userIsLoggedIn!
+            ? homePage()
+            : Authenticate()
+            : Container(
+          color: Color(0xff191918),
+          child: Center(
+            child: Authenticate(),
+          ),
+        ),
         splash: Image.asset('assets/logo.png'),
         splashTransition: SplashTransition.fadeTransition,
       ) ,

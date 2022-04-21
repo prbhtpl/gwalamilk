@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../Constants/appConstants.dart';
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
 
@@ -25,7 +27,7 @@ class _EditProfileState extends State<EditProfile> {
               Container(
                 height: 400,
                 width: MediaQuery.of(context).size.width,
-                color:Color(0xffDEF1F8),
+                color:AppConstants.themeColor,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),

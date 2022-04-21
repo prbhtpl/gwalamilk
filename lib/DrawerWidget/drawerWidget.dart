@@ -1,18 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gwalamilk/AccountHistory/AccountHhistory.dart';
 import 'package:gwalamilk/Auth/LoginScreen.dart';
 import 'package:gwalamilk/HelpSupport/Help&SupportScreen.dart';
 import 'package:gwalamilk/MyProfile/profileScreen.dart';
 import 'package:gwalamilk/ProductCategory/productCategory.dart';
 import 'package:gwalamilk/ProductsScreen/productsScreen.dart';
-
+import 'package:http/http.dart' as http;
 import '../AddMoney/addMoney.dart';
 import '../Constants/appConstants.dart';
+import '../HelperFunctions/HelperFunctions.dart';
 import '../OrderHistory/OrderHistory.dart';
 import '../ReferAFriend/referAFriend.dart';
 import '../homePage.dart';
+import 'Authenticate.dart';
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
 
@@ -21,6 +27,108 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
+
+String name='';
+String email='';
+String number='';
+  Future GetUserInfo() async {
+
+
+var userId=await HelperFunctions.getCurrentUserIdSharedPreference();
+
+      var api = Uri.parse(AppConstants.get_user);
+
+      Map mapeddate = {
+        'user_id':userId.toString()
+      };
+
+      final response = await http.post(
+        api,
+        body: mapeddate,
+      );
+
+      var res = await json.decode(response.body);
+      print("response" + response.body);
+
+      try {
+        if (response.statusCode == 200) {
+setState(() {
+  name=res["user_name"];
+  email=res["user_email"];
+  number=res["user_contact"];
+});
+
+        }else{
+
+          Fluttertoast.showToast(msg: 'Something went Wrong');
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+
+
+
+  Future<void> logout_Dialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            'Are you sure to Log Out ?',
+            style: TextStyle(fontSize: 18),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 0),
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black54),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 28),
+                    child: const Text('Logout',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.red)),
+                  ),
+                  onPressed: () async {
+                    await HelperFunctions.saveuserLoggedInSharedPreference(
+                        false);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Authenticate()));
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    GetUserInfo();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -32,21 +140,24 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8),
-                child: InkWell(
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    ElevatedButton(   style: ElevatedButton.styleFrom(
-                      primary:AppConstants.buttonColor,
-                    ),onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
-                    }, child: Text('Login')),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
+                padding: const EdgeInsets.all(12),
+                child: Container(height: 80,
+                  child: Center(
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ClipRRect(borderRadius: BorderRadius.circular(15),
+                          child: Image.asset('assets/invite.png',height: 60,),
+                        ),
+                        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(name,style: GoogleFonts.anonymousPro(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.blueAccent),),
+                            Text(email),
+                            Text(number),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
                 ),
               ),
               Divider(
@@ -225,6 +336,28 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       Text(
                         'Help & Support',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              InkWell(onTap: (){
+                logout_Dialog();
+              },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12.0, top: 10),
+                  child: Row(
+                    children: [
+                      Icon(Icons.exit_to_app),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Log Out',
                         style: TextStyle(fontSize: 15),
                       ),
                     ],
